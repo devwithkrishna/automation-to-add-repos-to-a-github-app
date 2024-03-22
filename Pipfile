@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+argparse = "=1.4.0"
+requests = "=2.31.0"
+pytz = "=2024.1"
+python-dotenv = "=1.0.1"
+
+[requires]
+python_version = "3"
