@@ -51,14 +51,14 @@ def list_github_apps_in_organization(organization: str):
 
     return app_short_list
 
-
 def main():
     """ To test the code """
     load_dotenv()
     GH_TOKEN = os.getenv('gh_token')
-    # organization = os.getenv('ORGANIZATION')
-    organization = 'devwithkrishna'
+    organization = os.getenv('ORGANIZATION')
+    # organization = 'devwithkrishna'
 
+    # Function call
     app_short_list = list_github_apps_in_organization(organization)
 
 if __name__ == '__main__':
