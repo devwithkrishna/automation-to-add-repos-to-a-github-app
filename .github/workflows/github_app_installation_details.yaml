@@ -1,0 +1,48 @@
+name: github-app-installation-details
+on:
+  workflow_dispatch:
+    inputs:
+      organization:
+        description: 'GitHub organization Name'
+        required: true
+        type: string
+        default: 'devwithkrishna'
+  schedule:
+    - cron: '0 0 1 * *' # Monthly once 12:00 AM
+
+jobs:
+  github-app-installation-details:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v4
+      - name: set up python 3.11
+        uses: actions/setup-python
+        with:
+          python-version: '3.11'
+      - name: package installations
+        run: |
+         pip install pipenv
+         pipenv install
+      - name: execute python program
+        env:
+          ORGANIZATION: ${{ inputs.organization }}
+        run: |
+          pipenv run python3 list_all_github_app_in_org.py
+      - name: azure login
+        uses: azure/login@v1
+        with:
+          creds: '{"clientId":"${{ secrets.AZURE_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_TENANT_ID }}"}'
+      - name: upload github app json details
+        env:
+          ACCESS_KEY: ${{ secrets.ACCESS_KEY }}
+        uses: azure/cli@v1
+        with:
+          azcliversion: 2.56.0
+          inlinescript: |
+            az account set -s "TECH-ARCHITECTS-NONPROD"
+            az account show -o json
+            az storage blob upload --account-name techarchitectssa --account-key $ACCESS_KEY --container-name github-app-list --file list_of_github_installations.json --name list_of_github_installations.json --overwrite
+      - name: Completed
+        run: |
+          echo "program completed successfully"
