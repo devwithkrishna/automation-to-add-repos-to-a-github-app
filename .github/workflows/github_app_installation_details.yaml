@@ -17,7 +17,7 @@ jobs:
       - name: git checkout
         uses: actions/checkout@v4
       - name: set up python 3.11
-        uses: actions/setup-python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
       - name: package installations
