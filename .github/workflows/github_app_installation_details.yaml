@@ -27,6 +27,7 @@ jobs:
       - name: execute python program
         env:
           ORGANIZATION: ${{ inputs.organization }}
+          GH_TOKEN: ${{ secrets.DEVWITHKRISHNA_PERSONAL_ACCESS_TOKEN }}
         run: |
           pipenv run python3 list_all_github_app_in_org.py
       - name: azure login
