@@ -1,0 +1,42 @@
+name: add-repositories-to-github-app-automation
+on:
+  workflow_dispatch:
+    inputs:
+      organization:
+        description: 'GitHub organization Name'
+        required: true
+        type: string
+        default: 'devwithkrishna'
+      search-string:
+        description: 'github repo name search string'
+        required: true
+        type: string
+      github-app-name:
+        description: 'github app name'
+        required: true
+        type: string
+
+jobs:
+  add-repositories-to-github-app-automation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: git checkout
+        uses: actions/checkout@v4
+      - name: set up python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: package installations
+        run: |
+         pip install pipenv
+         pipenv install
+      - name: execute python program
+        env:
+          ORGANIZATION: ${{ inputs.organization }}
+          GH_TOKEN: ${{ secrets.DEVWITHKRISHNA_PERSONAL_ACCESS_TOKEN }}
+          GH_TOKEN_CLASSIC: ${{ secrets.GH_TOKEN_CLASSIC }}
+        run: |
+          pipenv run python3 add_a_repo_to_github_app.py --search_string ${{ inputs.search-string }} --github_app_name ${{ inputs.github-app-name }}
+      - name: Completed
+        run: |
+          echo "program completed successfully"
