@@ -11,7 +11,8 @@ create an automation to add repos to a github app
 | personal access token classic | this is used for api call to add repos to github app | :heavy_check_mark: |
 
 **personal access token classic - provide `all repo access`**
-![Screenshot_3-5-2024_234236_github.com.jpeg](..%2F..%2F..%2F..%2FDownloads%2FScreenshot_3-5-2024_234236_github.com.jpeg)
+![Screenshot_3-5-2024_234236_github com](https://github.com/devwithkrishna/automation-to-add-repos-to-a-github-app/assets/108367225/cc853576-127e-4b17-8059-8417c766d23b)
+
 
 # parameters 
 
