@@ -8,7 +8,7 @@ on:
         type: string
         default: 'devwithkrishna'
       search-string:
-        description: 'github repo name search string'
+        description: 'github repo name search string (begining of repo name)'
         required: true
         type: string
       github-app-name:
