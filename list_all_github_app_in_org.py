@@ -57,7 +57,7 @@ def main():
     # organization = 'devwithkrishna'
 
     # Function call
-    app_short_list = list_github_apps_in_organization(organization)
+    list_github_apps_in_organization(organization)
 
 if __name__ == '__main__':
     main()
