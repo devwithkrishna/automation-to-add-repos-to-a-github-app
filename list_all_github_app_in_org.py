@@ -54,7 +54,7 @@ def list_github_apps_in_organization(organization: str):
 def main():
     """ To test the code """
     load_dotenv()
-    GH_TOKEN = os.getenv('gh_token')
+    GH_TOKEN = os.getenv('GH_TOKEN')
     organization = os.getenv('ORGANIZATION')
     # organization = 'devwithkrishna'
 
