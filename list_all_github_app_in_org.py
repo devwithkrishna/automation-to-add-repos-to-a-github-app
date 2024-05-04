@@ -32,8 +32,7 @@ def list_github_apps_in_organization(organization: str):
     if response_json.get('installationss') is not None:
         list_of_installations = response_json["installations"]
         print(f'Found {len(list_of_installations)} GitHub App in {organization} organization')
-    else:
-        exit()
+
     # Convert list of dictionaries to JSON string
     json_data = json.dumps(list_of_installations, indent=4)
 
