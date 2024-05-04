@@ -28,11 +28,9 @@ def list_github_apps_in_organization(organization: str):
     else:
         print(f'Listing GitHub Apps in {organization} failed')
 
-    total_num_of_github_app_installations = response_json['total_count']
-    print(f'Found {total_num_of_github_app_installations} GitHub App in {organization} organization')
-
     # Extract the list of dictionaries
     list_of_installations = response_json["installations"]
+    print(f'Found {len(list_of_installations)} GitHub App in {organization} organization')
 
     # Convert list of dictionaries to JSON string
     json_data = json.dumps(list_of_installations, indent=4)
