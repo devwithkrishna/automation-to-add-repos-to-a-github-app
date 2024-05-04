@@ -29,26 +29,25 @@ def list_github_apps_in_organization(organization: str):
         print(f'Listing GitHub Apps in {organization} failed')
     print(response_json)
     # Extract the list of dictionaries
-    if response_json.get('installationss') is not None:
-        list_of_installations = response_json["installations"]
-        print(f'Found {len(list_of_installations)} GitHub App in {organization} organization')
+    list_of_installations = response_json["installations"]
+    print(f'Found {len(list_of_installations)} GitHub App in {organization} organization')
 
-        # Convert list of dictionaries to JSON string
-        json_data = json.dumps(list_of_installations, indent=4)
+    # Convert list of dictionaries to JSON string
+    json_data = json.dumps(list_of_installations, indent=4)
 
-        # Write JSON string to a file
-        with open("list_of_github_installations.json", "w") as file:
-            file.write(json_data)
+    # Write JSON string to a file
+    with open("list_of_github_installations.json", "w") as file:
+        file.write(json_data)
 
-        app_short_list = []
-        for app in list_of_installations:
-            app_dict = {}
-            app_dict['id'] = app['id']
-            app_dict['app_id'] = app['app_id']
-            app_dict['app_slug'] = app['app_slug']
-            app_short_list.append(app_dict)
+    app_short_list = []
+    for app in list_of_installations:
+        app_dict = {}
+        app_dict['id'] = app['id']
+        app_dict['app_id'] = app['app_id']
+        app_dict['app_slug'] = app['app_slug']
+        app_short_list.append(app_dict)
 
-        return app_short_list
+    return app_short_list
 
 def main():
     """ To test the code """
