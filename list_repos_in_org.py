@@ -17,42 +17,37 @@ def list_repos_in_github_org(orgaization: str, search_string: str):
     }
 
     # Define pagination parameters
-    per_page = 100  # Number of records per page
+    per_page = 20  # Number of records per page
     page = 1  # Initial page number
-    list_of_repo_names = []
+    params = {'per_page': per_page, 'page': page}
 
+    all_repositories = []
     while True:
         # Add pagination parameters to the URL
-        params = {'per_page': per_page, 'page': page}
         response = requests.get(repo_url, headers=headers, params=params)
-        response_json = response.json()  ## Github repo details
-
-        # Checking the API status code
         if response.status_code == 200:
-            print(f"API request successful on {repo_url}")
-            # print(response_json)
+            # Parse the JSON response
+            repositories = response.json()
+            if not repositories:
+                break
+            all_repositories.extend(repositories)
+            params["page"] += 1
         else:
-            print(f"API request failed with status code {response.status_code}:")
-            # print(response_json)
+            print(f"Failed to fetch repositories: {response.status_code}")
             break
 
-        # Get the repo names from the list of dictionaries and add to another list
-        for repo in response_json:
-            repo_dict = {}
-            repo_dict['name'] = repo['full_name']
-            repo_dict['id'] = repo['id']
-            list_of_repo_names.append(repo_dict)
+    # Get the repo names from the list of dictionaries and add to another list
+    list_of_repo_names = []
+    for repo in all_repositories:
+        repo_dict = {}
+        repo_dict['name'] = repo['full_name']
+        repo_dict['id'] = repo['id']
+        list_of_repo_names.append(repo_dict)
 
-        page += 1  # Move to the next page
-
-
-        # Finding repos starting with search string
-        matching_repos = [repo for repo in list_of_repo_names if repo['name'].startswith(f'{orgaization}/{search_string}')]
-        print(f"Matching repos {search_string} are: {matching_repos}")
-        return matching_repos
-        # Break the loop if no more pages
-        if len(response_json) < per_page:
-            break
+    # Finding repos starting with search string
+    matching_repos = [repo for repo in list_of_repo_names if repo['name'].startswith(f'{orgaization}/{search_string}')]
+    print(f"Matching repos {search_string} are: {matching_repos}")
+    return matching_repos
 
 
 def main():
