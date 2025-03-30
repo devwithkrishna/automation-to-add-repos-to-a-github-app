@@ -7,7 +7,7 @@ name = "pypi"
 argparse = "=1.4.0"
 requests = "=2.32.2"
 pytz = "=2025.1"
-python-dotenv = "=1.0.1"
+python-dotenv = "=1.1.0"
 
 [requires]
 python_version = "3"
